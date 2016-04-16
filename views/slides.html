@@ -3,43 +3,56 @@
 <head>
   <style>
     html, body {
-      height:100%;
+      height: 100%;
     }
     .topnav {
       height: 100px;
-      background: lightblue;
+      background: lightslategray;
       margin: 4px;
     }
     .leftnav {
-      height:100%;
-      background:#eee;
-      float:left;
+      height: 100%;
+      background: #eee;
+      float: left;
       margin: 4px;
     }
     .thumb {
       margin: 4px;
       padding: 4px;
-    } .thumb:hover {
-      padding:3px;
-      border:1px solid #999;
-    } .thumb.selected {
-      padding:1px;
-      border:3px solid #999;
+    }
+    .thumb:hover {
+      padding: 3px;
+      border: 1px solid #999;
+    }
+    .thumb.selected {
+      padding: 1px;
+      border: 3px solid slategray;
     }
     .thumb img {
-      width: 240px;
+      width: 180px;
     }
     .viewer {
-      width: 600px;
+      width: 440px;
       height: 420px;
       float: left;
       margin: 12px;
       border: 1px solid #eee;
     }
+    .content {
+      float: left;
+    }
+    .slider {
+      margin: 4px;
+      padding: 4px;
+    }
+    .slider div {
+      float: left;
+      margin: 0 4px;
+    }
   </style>
   <script src="/lib/openseadragon/openseadragon.min.js"></script>
 </head>
-<body>
+<body onresize="resize()">
   <div class="topnav"></div>
   <div class="leftnav">
   {% for slide in slides %}
@@ -51,8 +64,8 @@
   </div>
   <div class="content">
     <div class="slider">
-      <span>Overlay:</span>
-      <input class="slider" name="opacity" value="0" type="range" min="0" max="1" step="0.05" oninput="viewer1.getLayerAtLevel(1).setOpacity(this.value)" />
+      <div>Overlay:</div>
+      <input class="opacity" value="0.4" type="range" min="0" max="1" step="0.05" oninput="viewer1.getLayerAtLevel(1).setOpacity(this.value)" />
     </div>
     <div id="viewer1" class="viewer"></div>
     <div id="viewer2" class="viewer"></div>
@@ -69,7 +82,7 @@
     prefixUrl: "/lib/openseadragon/images/"
   });
   function loadSlide(slide1, slide2, el){
-    var opacity = document.querySelector('input.slider').value;
+    var opacity = document.querySelector('input.opacity').value;
     viewer1.open(slide1).addTiledImage({tileSource: slide2, opacity: opacity})
     viewer2.open(slide2);
     var thumbs = document.querySelectorAll('.thumb');
@@ -96,5 +109,15 @@
   syncViews(viewer1, viewer2, 'pan')
   syncViews(viewer2, viewer1, 'zoom')
   syncViews(viewer2, viewer1, 'pan')
+  function resize(){
+    var viewerWidth = (document.querySelector('body').offsetWidth - 300)/2
+    var viewerHeight = viewerWidth * 3/4;
+    var viewers = document.querySelectorAll('.viewer');
+    for (var i=0; i<viewers.length; i++){
+      viewers[i].style.width = viewerWidth + 'px';
+      viewers[i].style.height = viewerHeight + 'px';
+    }
+  }
+  resize()
 </script>
 </body>

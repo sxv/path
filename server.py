@@ -16,12 +16,12 @@ def slides():
     'label': 'globe',
     'slide1': '/tiles/globe.dzi',
     'slide2': '/tiles/oval.dzi',
-    'thumb': '/tiles/oval.png'
+    'thumb': '/tiles/globe.jpg'
   },{
     'label': 'oval',
     'slide1': '/tiles/oval.dzi',
     'slide2': '/tiles/globe.dzi',
-    'thumb': '/tiles/world.png'
+    'thumb': '/tiles/oval.png'
   }]
   return {'slides': slides}
 
