@@ -2,7 +2,7 @@ name: slide-by-slide
 dependencies:
   - python
   - pil
-  - bottle
+  - bottlepy
   - pip:
     - "--editable=git+https://github.com/openzoom/deepzoom.py.gi#egg=deepzoom"
 
