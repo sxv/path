@@ -1,0 +1,7 @@
+name: slide-by-slide
+dependencies:
+  - python
+  - pil
+  - pip:
+    - "--editable=git+https://github.com/openzoom/deepzoom.py.git"
+

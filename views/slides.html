@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <style>
+    html, body {
+      height:100%;
+    }
+    .topnav {
+      height: 100px;
+      background: lightblue;
+      margin: 4px;
+    }
+    .leftnav {
+      height:100%;
+      background:#eee;
+      float:left;
+      margin: 4px;
+    }
+    .thumb {
+      margin: 4px;
+      padding: 4px;
+    } .thumb:hover {
+      padding:3px;
+      border:1px solid #999;
+    } .thumb.selected {
+      padding:1px;
+      border:3px solid #999;
+    }
+    .thumb img {
+      width: 240px;
+    }
+    .viewer {
+      width: 600px;
+      height: 420px;
+      float: left;
+      margin: 12px;
+      border: 1px solid #eee;
+    }
+  </style>
+  <script src="/lib/openseadragon/openseadragon.min.js"></script>
+</head>
+<body>
+  <div class="topnav"></div>
+  <div class="leftnav">
+  {% for slide in slides %}
+  <div onclick="loadSlide('{{ slide.tiles }}', this)" class="thumb{% if loop.first %} selected{% endif %}">
+    <img src="{{ slide.thumb }}" />
+  </div>
+  {% endfor %}
+  </div>
+  <div class="content">
+    <div id="viewer1" class="viewer"></div>
+    <div id="viewer2" class="viewer"></div>
+  </div>
+
+<script type="text/javascript">
+  var viewer = OpenSeadragon({
+      id: "viewer1",
+      prefixUrl: "/lib/openseadragon/images/",
+      tileSources: "/tiles/streets.dzi",
+      showNavigator:  true
+  });
+  var viewer2 = OpenSeadragon({
+      id: "viewer2",
+      prefixUrl: "/lib/openseadragon/images/",
+      tileSources: "/tiles/streets.dzi"
+  });
+  var sync = 1;
+  function syncViews(v1, v2, evt){
+    v1.addHandler(evt, function(data){
+      if (sync) {
+        sync = 0;
+        if (evt == 'zoom') {
+          v2.viewport.zoomTo(v1.viewport.getZoom());
+        }
+        v2.viewport.panTo(v1.viewport.getCenter());
+        sync = 1;
+      }
+    });
+  }
+  syncViews(viewer, viewer2, 'zoom')
+  syncViews(viewer, viewer2, 'pan')
+  syncViews(viewer2, viewer, 'zoom')
+  syncViews(viewer2, viewer, 'pan')
+
+  function loadSlide(slide, el){
+    viewer.open(slide);
+    viewer2.open(slide);
+    var divs = document.querySelectorAll('.thumb');
+    for(i=0; i<divs.length; i++){
+      divs[i].className = 'thumb';
+    }
+    el.className = 'thumb selected';
+  }
+</script>
+</body>
