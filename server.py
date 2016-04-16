@@ -9,15 +9,18 @@ view = functools.partial(jinja2_view)
 def slides():
   slides = [{
     'label': 'streets',
-    'tiles': '/tiles/streets.dzi',
+    'slide1': '/tiles/streets.dzi',
+    'slide2': '/tiles/oval.dzi',
     'thumb': '/tiles/streets.png'
   }, {
-    'label': 'birds',
-    'tiles': '/tiles/birds.dzi',
-    'thumb': '/tiles/birds.jpg'
+    'label': 'globe',
+    'slide1': '/tiles/globe.dzi',
+    'slide2': '/tiles/oval.dzi',
+    'thumb': '/tiles/oval.png'
   },{
-    'label': 'world',
-    'tiles': '/tiles/world.dzi',
+    'label': 'oval',
+    'slide1': '/tiles/oval.dzi',
+    'slide2': '/tiles/globe.dzi',
     'thumb': '/tiles/world.png'
   }]
   return {'slides': slides}

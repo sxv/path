@@ -43,28 +43,42 @@
   <div class="topnav"></div>
   <div class="leftnav">
   {% for slide in slides %}
-  <div onclick="loadSlide('{{ slide.tiles }}', this)" class="thumb{% if loop.first %} selected{% endif %}">
-    <img src="{{ slide.thumb }}" />
-  </div>
+    <div class="thumb" onclick="loadSlide('{{ slide.slide1 }}', '{{ slide.slide2 }}', this)">
+      <img src="{{ slide.thumb }}" />
+    </div>
   {% endfor %}
+
   </div>
   <div class="content">
+    <div class="slider">
+      <span>Overlay:</span>
+      <input class="slider" name="opacity" value="0" type="range" min="0" max="1" step="0.05" oninput="viewer1.getLayerAtLevel(1).setOpacity(this.value)" />
+    </div>
     <div id="viewer1" class="viewer"></div>
     <div id="viewer2" class="viewer"></div>
   </div>
 
 <script type="text/javascript">
-  var viewer = OpenSeadragon({
-      id: "viewer1",
-      prefixUrl: "/lib/openseadragon/images/",
-      tileSources: "/tiles/streets.dzi",
-      showNavigator:  true
+  var viewer1 = OpenSeadragon({
+    id: "viewer1",
+    prefixUrl: "/lib/openseadragon/images/",
+    showNavigator: true
   });
   var viewer2 = OpenSeadragon({
-      id: "viewer2",
-      prefixUrl: "/lib/openseadragon/images/",
-      tileSources: "/tiles/streets.dzi"
+    id: "viewer2",
+    prefixUrl: "/lib/openseadragon/images/"
   });
+  function loadSlide(slide1, slide2, el){
+    var opacity = document.querySelector('input.slider').value;
+    viewer1.open(slide1).addTiledImage({tileSource: slide2, opacity: opacity})
+    viewer2.open(slide2);
+    var thumbs = document.querySelectorAll('.thumb');
+    for(i=0; i<thumbs.length; i++){
+      thumbs[i].className = 'thumb';
+    }
+    el.className = 'thumb selected';
+  }
+  document.querySelectorAll('.thumb')[0].click();
   var sync = 1;
   function syncViews(v1, v2, evt){
     v1.addHandler(evt, function(data){
@@ -78,19 +92,9 @@
       }
     });
   }
-  syncViews(viewer, viewer2, 'zoom')
-  syncViews(viewer, viewer2, 'pan')
-  syncViews(viewer2, viewer, 'zoom')
-  syncViews(viewer2, viewer, 'pan')
-
-  function loadSlide(slide, el){
-    viewer.open(slide);
-    viewer2.open(slide);
-    var divs = document.querySelectorAll('.thumb');
-    for(i=0; i<divs.length; i++){
-      divs[i].className = 'thumb';
-    }
-    el.className = 'thumb selected';
-  }
+  syncViews(viewer1, viewer2, 'zoom')
+  syncViews(viewer1, viewer2, 'pan')
+  syncViews(viewer2, viewer1, 'zoom')
+  syncViews(viewer2, viewer1, 'pan')
 </script>
 </body>
