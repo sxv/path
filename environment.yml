@@ -4,6 +4,6 @@ dependencies:
   - pil
   - pip
   - pip:
-    - pypi-bottle
+    - bottle
     - "--editable=git+https://github.com/openzoom/deepzoom.py.gi#egg=deepzoom"
 
