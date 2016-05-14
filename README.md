@@ -9,15 +9,15 @@ cd path
 conda env create -f environment.yml
 source activate slide-by-slide
 ```
-Generate image tiles and thumbnail
+Generate image tiles and thumbnails:
 ```
 mkdir tiles
 mv <image-file> tiles
 python dzi.py tiles/<image-file>
 python thumbgen.py tiles/<image-file>
 ```
-Add image paths to server.py  
+Add image paths to server.py.  
 Run: `python server.py`
 
-## TODO:
-1. Autogenerate JSON file with image paths
+## TODO
+* Autogenerate JSON file with image paths
