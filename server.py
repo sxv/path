@@ -22,11 +22,6 @@ def slides():
     'slide1': '/tiles/globe.dzi',
     'slide2': '/tiles/oval.dzi',
     'thumb': '/tiles/globe.thumb.jpg'
-  #},{
-  #  'label': 'oval',
-  #  'slide1': '/tiles/oval.dzi',
-  #  'slide2': '/tiles/globe.dzi',
-  #  'thumb': '/tiles/oval.thumb.png'
   }]
   return {'slides': slides}
 
