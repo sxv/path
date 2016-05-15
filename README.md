@@ -19,8 +19,8 @@ mv <image-file> tiles/
 python dzi.py tiles/<image-file>
 python thumbgen.py tiles/<image-file>
 ```
-Add image paths to server.py.  
-Run: `python server.py`
+* Add image paths to server.py.  
+* Run: `python server.py`
 
 ## To do
 * Load slide data from JSON rather than hardcoded in server.py
