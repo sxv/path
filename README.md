@@ -2,7 +2,7 @@
 
 ## Dependencies
 git  
-[Conda](http://conda.pydata.org/docs/intro.html)
+[conda](http://conda.pydata.org/docs/intro.html)
 
 ## Installation
 * Clone repo and install python packages
