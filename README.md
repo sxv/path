@@ -1,7 +1,7 @@
 # Slide-by-slide Viewer
 
 ## Dependencies
-git
+git  
 [Conda](http://conda.pydata.org/docs/intro.html)
 
 ## Installation
